@@ -46,14 +46,14 @@ jobs:
       CRYPTOGRAPHY_DONT_BUILD_RUST: 1
       TZ: UTC
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Create Database
         run: |
           psql --host=postgres --username=postgres --command="CREATE USER ckan_default WITH PASSWORD 'pass' NOSUPERUSER NOCREATEDB NOCREATEROLE;"
           createdb --encoding=utf-8 --host=postgres --username=postgres --owner=ckan_default ckan_test
           psql --host=postgres --username=postgres -d ckan_test -c "CREATE EXTENSION postgis; CREATE EXTENSION postgis_topology;"
       - name: pip cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
